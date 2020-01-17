@@ -41,19 +41,14 @@ curl -vL http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-${ASTERIS
 mkdir -p /etc/asterisk/
 
 ./contrib/scripts/install_prereq install
-./contrib/scripts/get_mp3_source.sh
 
 ./configure --libdir=/usr/lib64 --with-jansson-bundled
 make menuselect/menuselect menuselect-tree menuselect.makeopts
 
 # we don't need any sounds in docker, they will be mounted as volume
+menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
 menuselect/menuselect --disable pbx_ael menuselect.makeopts
-menuselect/menuselect --disable CHAN_SIP menuselect.makeopts
-menuselect/menuselect --disable CEL_PGSQL menuselect.makeopts
-menuselect/menuselect --disable CDR_PGSQL menuselect.makeopts
-menuselect/menuselect --disable RES_CONFIG_PGSQL menuselect.makeopts
 
-menuselect/menuselect --enable format_mp3 menuselect.makeopts
 menuselect/menuselect --enable codec_opus menuselect.makeopts
 menuselect/menuselect --enable codec_silk menuselect.makeopts
 menuselect/menuselect --enable codec_siren7 menuselect.makeopts
@@ -73,6 +68,19 @@ make dist-clean
 sed -i -E 's/^;(run)(user|group)/\1\2/' /etc/asterisk/asterisk.conf
 sed -i -e 's/# MAXFILES=/MAXFILES=/' /usr/sbin/safe_asterisk
 
+# Install opus, for some reason menuselect option above does not working
+mkdir -p /usr/src/codecs/opus &&
+  cd /usr/src/codecs/opus &&
+  curl -vsL http://downloads.digium.com/pub/telephony/codec_opus/${OPUS_CODEC}.tar.gz | tar --strip-components 1 -xz &&
+  cp *.so /usr/lib64/asterisk/modules/ &&
+  cp codec_opus_config-en_US.xml /var/lib/asterisk/documentation/
+
+# Codec g729, it depends of processors, please verify before install
+#mkdir -p /usr/src/codecs/g729 &&
+#  cd /usr/src/codecs/g729 &&  
+#  wget http://asterisk.hosting.lv/bin/${G729_CODEC}.so &&
+#  cp *.so /usr/lib64/asterisk/modules/
+
 chown -R asterisk:asterisk /etc/asterisk \
   /var/*/asterisk \
   /usr/*/asterisk \
@@ -80,7 +88,8 @@ chown -R asterisk:asterisk /etc/asterisk \
 chmod -R 750 /var/spool/asterisk
 
 cd /
-rm -rf /usr/src/asterisk
+rm -rf /usr/src/asterisk \
+  /usr/src/codecs
 
 yum -y clean all
 rm -rf /var/cache/yum/*
