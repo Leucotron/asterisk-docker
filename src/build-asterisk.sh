@@ -33,7 +33,7 @@ yum -y install \
 mkdir -p /usr/src/asterisk
 
 cd /usr/src/asterisk
-curl -vL http://downloads.asterisk.org/pub/telephony/asterisk/asterisk-${ASTERISK_VERSION}.tar.gz | tar --strip-components 1 -xz
+curl -vL http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${ASTERISK_VERSION}.tar.gz | tar --strip-components 1 -xz
 
 # 1.5 jobs per core works out okay
 : ${JOBS:=$(($(nproc) + $(nproc) / 2))}
@@ -42,18 +42,23 @@ mkdir -p /etc/asterisk/
 
 ./contrib/scripts/install_prereq install
 
-./configure --libdir=/usr/lib64 --with-jansson-bundled
+./configure --libdir=/usr/lib64 --with-pjproject-bundled --with-jansson-bundled
 make menuselect/menuselect menuselect-tree menuselect.makeopts
 
 # we don't need any sounds in docker, they will be mounted as volume
 menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
 menuselect/menuselect --disable pbx_ael menuselect.makeopts
+menuselect/menuselect --disable res_pjsip_transport_websocket menuselect.makeopts
+menuselect/menuselect --disable cel_sqlite3_custom menuselect.makeopts
+menuselect/menuselect --disable cdr_pgsql menuselect.makeopts
+menuselect/menuselect --disable cdr_sqlite3_custom menuselect.makeopts
 
 menuselect/menuselect --enable codec_opus menuselect.makeopts
 menuselect/menuselect --enable codec_silk menuselect.makeopts
 menuselect/menuselect --enable codec_siren7 menuselect.makeopts
 menuselect/menuselect --enable codec_siren14 menuselect.makeopts
 menuselect/menuselect --enable codec_g729a menuselect.makeopts
+menuselect/menuselect --enable CORE-SOUNDS-EN-WAV menuselect.makeopts
 menuselect/menuselect --enable EXTRA-SOUNDS-EN-WAV menuselect.makeopts
 
 make -j ${JOBS} all
