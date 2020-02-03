@@ -48,10 +48,6 @@ make menuselect/menuselect menuselect-tree menuselect.makeopts
 # we don't need any sounds in docker, they will be mounted as volume
 menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
 menuselect/menuselect --disable pbx_ael menuselect.makeopts
-menuselect/menuselect --disable res_pjsip_transport_websocket menuselect.makeopts
-menuselect/menuselect --disable cel_sqlite3_custom menuselect.makeopts
-menuselect/menuselect --disable cdr_pgsql menuselect.makeopts
-menuselect/menuselect --disable cdr_sqlite3_custom menuselect.makeopts
 
 menuselect/menuselect --enable codec_opus menuselect.makeopts
 menuselect/menuselect --enable codec_silk menuselect.makeopts
