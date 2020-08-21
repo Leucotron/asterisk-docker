@@ -34,4 +34,25 @@ docker run -it --rm -e ASTERISK_USER=nome_do_usuário leucotron/asterisk:latest
 ```
 Referência para Entrypoint: https://docs.docker.com/engine/reference/builder/#entrypoint
 
+3) Geração de novas versões:
+Para gerar uma nova imagem com nova versão de Asterisk, nesse caso do exemplo abaixo, usamos a versão 17.6.0 alterando a ENV ASTERISK_VERSION
+
+```
+docker build -t leucotron/asterisk:17.6.0 .
+```
+
+Para autenticar seu usuário do Docker Hub
+
+```
+docker login
+```
+
+Para enviar as modificações para o repositório:
+
+```
+docker push leucotron/asterisk:17.6.0
+```
+
+Para gerar a versão "latest", basta substituir a TAG de versão acima por "latest" em todos os pontos apresentados acima. Referência: https://docs.docker.com/docker-hub/repos/
+
 Dockerfile disponível em "src" e toda documentação do Docker se encontra em https://docs.docker.com/
