@@ -1,10 +1,16 @@
 # vim:set ft=dockerfile:
 FROM centos:7
 
-LABEL maintainer="Matheus Machado Guerzoni Duarte <matheus.duarte@leucotron.com.br>"
+LABEL maintainer="Afonso Henrique Moreira Magalhaes <afonso@leucotron.com.br>"
 
-ENV ASTERISK_VERSION 17.6.0
-ENV OPUS_CODEC asterisk-17.0/x86-64/codec_opus-17.0_1.3.0-x86_64
+ENV ASTERISK_VERSION 18.1.0
+ENV OPUS_CODEC asterisk-18.0/x86-64/codec_opus-18.0_current-x86_64
+
+# Last Asterisk 17 version
+#ENV ASTERISK_VERSION 17.9.0
+#ENV OPUS_CODEC asterisk-17.0/x86-64/codec_opus-17.0_1.3.0-x86_64
+
+
 # Check your processor spec before install
 #ENV G729_CODEC codec_g729-ast170-gcc4-glibc-x86_64-core2
 

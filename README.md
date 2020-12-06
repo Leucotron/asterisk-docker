@@ -53,6 +53,6 @@ Para enviar as modificações para o repositório:
 docker push leucotron/asterisk:17.6.0
 ```
 
-Para gerar a versão "latest", basta substituir a TAG de versão acima por "latest" em todos os pontos apresentados acima. Referência: https://docs.docker.com/docker-hub/repos/
+Para gerar a versão "latest", basta substituir a TAG de versão por "latest" em todos os comandos apresentados acima. Referência: https://docs.docker.com/docker-hub/repos/
 
 Dockerfile disponível em "src" e toda documentação do Docker se encontra em https://docs.docker.com/
