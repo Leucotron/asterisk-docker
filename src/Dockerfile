@@ -3,7 +3,7 @@ FROM centos:7
 
 LABEL maintainer="Afonso Henrique Moreira Magalhaes <afonso@leucotron.com.br>"
 
-ENV ASTERISK_VERSION 18.8.0
+ENV ASTERISK_VERSION 18.9.0
 ENV OPUS_CODEC asterisk-18.0/x86-64/codec_opus-18.0_current-x86_64
 
 # Last Asterisk 17 version

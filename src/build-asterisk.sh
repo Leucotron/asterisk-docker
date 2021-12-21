@@ -8,6 +8,10 @@ fi
 
 set -ex
 
+# Set Timezone to Sao_Paulo
+rm -f /etc/localtime
+ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+
 useradd --system asterisk
 
 yum -y install \
