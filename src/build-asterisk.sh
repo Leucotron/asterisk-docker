@@ -8,9 +8,10 @@ fi
 
 set -ex
 
+# O setup de timezone foi removido para manter a configuração em GMT0
 # Set Timezone to Sao_Paulo
-rm -f /etc/localtime
-ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+# rm -f /etc/localtime
+# ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
 
 useradd --system asterisk
 
