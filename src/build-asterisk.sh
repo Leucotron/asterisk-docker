@@ -32,6 +32,7 @@ yum -y install \
   tar \
   libffi-devel \
   sqlite-devel \
+  supervisor \
   curl \
   wget \
   bison
@@ -42,8 +43,8 @@ cd /usr/src/asterisk
 curl -vL http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${ASTERISK_VERSION}.tar.gz | tar --strip-components 1 -xz
 
 # patch para atualização do MAXPTIME em relação as exigências da VIVO
-wget https://arquivos.leucotron.com.br/update/patch/asterisk/18/main/codec_builtin.c 
-cp codec_builtin.c ./main/codec_builtin.c
+# wget https://arquivos.leucotron.com.br/update/patch/asterisk/18/main/codec_builtin.c 
+# cp codec_builtin.c ./main/codec_builtin.c
 
 # 1.5 jobs per core works out okay
 : ${JOBS:=$(($(nproc) + $(nproc) / 2))}
