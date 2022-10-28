@@ -15,6 +15,35 @@ set -ex
 
 useradd --system asterisk
 
+## import system information vars
+. /etc/os-release && \
+\
+## install epel repository
+dnf -y install epel-release && \
+\
+## repo for phpMyAdmin
+rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \
+## repo for zabbix agent
+rpm -Uvh https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-1.el8.noarch.rpm && \
+## repo for ffmpeg command
+rpm -Uhv https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm && \
+rpm -Uhv https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm && \
+## repo for lame command
+rpm -Uhv http://repo.okay.com.mx/centos/8/x86_64/release/okay-release-1-5.el8.noarch.rpm && \
+## fix wrong option
+sed '/^failovermethod/d' -i /etc/yum.repos.d/okay.repo && \
+\
+## install dnf plugins
+dnf -y install dnf-plugins-core && \
+## enable extra repository
+dnf config-manager --set-enabled \
+  powertools \
+  remi \
+  rpmfusion-free-updates \
+  rpmfusion-nonfree-updates \
+  okay \
+&& \
+
 yum -y install \
   cpp \
   gcc \
@@ -35,6 +64,7 @@ yum -y install \
   supervisor \
   curl \
   wget \
+  jansson \
   bison
 
 mkdir -p /usr/src/asterisk

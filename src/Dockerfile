@@ -1,5 +1,7 @@
 # vim:set ft=dockerfile:
-FROM centos:7
+FROM rockylinux/rockylinux:8
+
+ENV APP_VER=0.0.1
 
 LABEL maintainer="Afonso Henrique Moreira Magalhaes <afonso@leucotron.com.br>"
 
