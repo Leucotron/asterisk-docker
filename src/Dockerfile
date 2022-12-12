@@ -5,11 +5,11 @@ ENV APP_VER=0.0.1
 
 LABEL maintainer="Afonso Henrique Moreira Magalhaes <afonso@leucotron.com.br>"
 
-ENV ASTERISK_VERSION 20.0.0
+ENV ASTERISK_VERSION 20.0.1
 ENV OPUS_CODEC asterisk-20.0/x86-64/codec_opus-20.0_current-x86_64
 
 # Last Asterisk 18 version
-# ENV ASTERISK_VERSION 18.15.0
+#ENV ASTERISK_VERSION 18.15.1
 #ENV OPUS_CODEC asterisk-18.0/x86-64/codec_opus-18.0_current-x86_64
 
 # Last Asterisk 17 version
