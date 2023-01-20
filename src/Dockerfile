@@ -1,11 +1,11 @@
 # vim:set ft=dockerfile:
 FROM rockylinux/rockylinux:8
 
-ENV APP_VER=0.0.1
+ENV APP_VER=20.1.0
 
 LABEL maintainer="Afonso Henrique Moreira Magalhaes <afonso@leucotron.com.br>"
 
-ENV ASTERISK_VERSION 20.0.1
+ENV ASTERISK_VERSION 20.1.0
 ENV OPUS_CODEC asterisk-20.0/x86-64/codec_opus-20.0_current-x86_64
 
 # Last Asterisk 18 version
