@@ -65,6 +65,7 @@ yum -y install \
   curl \
   wget \
   jansson \
+  libedit \
   bison
 
 mkdir -p /usr/src/asterisk
