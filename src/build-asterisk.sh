@@ -44,7 +44,7 @@ dnf config-manager --set-enabled \
   okay \
 && \
 
-yum -y install \
+yum -y install --allowerasing --skip-broken \
   cpp \
   gcc \
   gcc-c++ \

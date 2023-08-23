@@ -9,7 +9,7 @@ ENV ASTERISK_VERSION 20.4.0
 ENV OPUS_CODEC asterisk-20.0/x86-64/codec_opus-20.0_current-x86_64
 
 # Last Asterisk 18 version
-#ENV ASTERISK_VERSION 18.18.1
+#ENV ASTERISK_VERSION 18.19.0
 #ENV OPUS_CODEC asterisk-18.0/x86-64/codec_opus-18.0_current-x86_64
 
 # Last Asterisk 17 version
