@@ -16,57 +16,32 @@ set -ex
 useradd --system asterisk
 
 ## import system information vars
-. /etc/os-release && \
-\
-## install epel repository
-dnf -y install epel-release && \
-\
-## repo for phpMyAdmin
-rpm -Uvh https://rpms.remirepo.net/enterprise/remi-release-8.rpm && \
-## repo for zabbix agent
-rpm -Uvh https://repo.zabbix.com/zabbix/6.0/rhel/8/x86_64/zabbix-release-6.0-1.el8.noarch.rpm && \
-## repo for ffmpeg command
-rpm -Uhv https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm && \
-rpm -Uhv https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm && \
-## repo for lame command
-rpm -Uhv http://repo.okay.com.mx/centos/8/x86_64/release/okay-release-1-5.el8.noarch.rpm && \
-## fix wrong option
-sed '/^failovermethod/d' -i /etc/yum.repos.d/okay.repo && \
-\
-## install dnf plugins
-dnf -y install dnf-plugins-core && \
-## enable extra repository
-dnf config-manager --set-enabled \
-  powertools \
-  remi \
-  rpmfusion-free-updates \
-  rpmfusion-nonfree-updates \
-  okay \
-&& \
+. /etc/os-release 
 
-yum -y install --allowerasing --skip-broken \
-  cpp \
-  gcc \
-  gcc-c++ \
-  make \
-  ncurses \
-  ncurses-devel \
-  libxml2 \
-  libxml2-devel \
-  openssl-devel \
-  newt-devel \
-  libuuid-devel \
-  net-snmp-devel \
-  xinetd \
-  tar \
-  libffi-devel \
-  sqlite-devel \
-  supervisor \
-  curl \
-  wget \
-  jansson \
-  libedit \
-  bison
+DEBIAN_FRONTEND=noninteractive 
+
+TZ=America/Sao_Paulo
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+apt-get -y update
+apt-get -y upgrade
+
+apt-get install -y tzdata
+
+apt-get -y install debconf-utils && \
+        echo "libvpb1 libvpb1/countrycode string 55" | debconf-set-selections && \
+        echo "tzdata tzdata/Areas select Etc"        | debconf-set-selections && \
+        echo "tzdata tzdata/Zones/Etc select UTC"    | debconf-set-selections && \
+        echo "Etc/UTC" > /etc/timezone && \
+        export DEBIAN_FRONTEND=noninteractive DEBCONF_NONINTERACTIVE_SEEN=true && \
+        apt-get -y install gosu libcap2 libedit2 libjansson4 libpopt0 libsqlite3-0 libssl1.1 libsystemd0 liburiparser1 libuuid1 libxml2 libxslt1.1 \
+            libjack0 libresample1 libodbc1 libpq5 libsdl1.2debian libcurl4 libgsm1 liblua5.1-0 libgmime-3.0-0 libical3 libiksemel3 libneon27-gnutls \
+            libportaudio2 libpri1.4 libradcli4 libspandsp2 libspeex1 libspeexdsp1 libsqlite0 libsrtp2-1 libss7-2.0 libsybdb5 libtonezone2.0 libvorbisfile3 && \
+        apt-get clean
+
+apt-get install -y build-essential
+
+apt-get install -y curl git-core subversion wget libjansson-dev sqlite autoconf automake libxml2-dev libncurses5-dev libtool
 
 mkdir -p /usr/src/asterisk
 
@@ -134,7 +109,6 @@ cd /
 rm -rf /usr/src/asterisk \
   /usr/src/codecs
 
-yum -y clean all
 rm -rf /var/cache/yum/*
 
 exec rm -f /build-asterisk.sh
