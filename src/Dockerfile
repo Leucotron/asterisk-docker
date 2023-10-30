@@ -24,12 +24,12 @@ ENV OPUS_CODEC asterisk-20.0/x86-64/codec_opus-20.0_current-x86_64
 # Check your processor spec before install
 #ENV G729_CODEC codec_g729-ast170-gcc4-glibc-x86_64-core2
 
+ADD rootfs /
 COPY build-asterisk.sh /
-RUN /build-asterisk.sh
+COPY build-start.sh /
+RUN /build-start.sh
 
 EXPOSE 5060/udp 5060/tcp 10000-20000/udp
-VOLUME /var/lib/asterisk/sounds /var/lib/asterisk/keys /var/lib/asterisk/phoneprov /var/spool/asterisk /var/log/asterisk
+VOLUME /var/lib/asterisk/sounds /var/lib/asterisk/keys /var/lib/asterisk/phoneprov /var/spool/asterisk /var/log/asterisk /var/log/supervisor
 
-COPY docker-entrypoint.sh /
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["/usr/sbin/asterisk", "-vvvdddf", "-T", "-W", "-U", "asterisk", "-p"]
+CMD ["/usr/bin/supervisord"]

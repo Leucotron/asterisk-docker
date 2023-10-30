@@ -109,6 +109,6 @@ cd /
 rm -rf /usr/src/asterisk \
   /usr/src/codecs
 
-rm -rf /var/cache/yum/*
+apt-get clean
 
 exec rm -f /build-asterisk.sh
