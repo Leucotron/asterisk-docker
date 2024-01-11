@@ -1,16 +1,16 @@
 # vim:set ft=dockerfile:
 FROM ubuntu
 
-ENV APP_VER=20.5.0
-#ENV APP_VER=18.20.0
+ENV APP_VER=20.5.2
+#ENV APP_VER=18.20.2
 
 LABEL maintainer="Afonso Henrique Moreira Magalhaes <afonso@leucotron.com.br>"
 
-ENV ASTERISK_VERSION 20.5.0
+ENV ASTERISK_VERSION 20.5.2
 ENV OPUS_CODEC asterisk-20.0/x86-64/codec_opus-20.0_current-x86_64
 
 # Last Asterisk 18 version
-#ENV ASTERISK_VERSION 18.20.0
+#ENV ASTERISK_VERSION 18.20.2
 #ENV OPUS_CODEC asterisk-18.0/x86-64/codec_opus-18.0_current-x86_64
 
 # Last Asterisk 17 version
