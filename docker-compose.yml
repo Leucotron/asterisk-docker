@@ -1,0 +1,17 @@
+version: '3.8'
+volumes:
+  config: null
+  monitor: null
+services:
+  asterisk:
+    network_mode: host
+    image: 'leucotron/asterisk:20.7.0'
+    environment:
+      - TZ=America/Sao_Paulo
+    volumes:
+      - './data/var/lib/asterisk/sounds/pt-br:/var/lib/asterisk/sounds/pt-br'
+      - './data/var/lib/asterisk/lct-moh:/var/lib/asterisk/lct-moh'
+      - './data/etc/asterisk/keys:/etc/asterisk/keys'
+      - './data/etc/asterisk:/etc/asterisk'
+      - './data/var/spool/asterisk/monitor:/var/spool/asterisk/monitor'
+    restart: unless-stopped

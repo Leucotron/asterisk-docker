@@ -8,11 +8,6 @@ fi
 
 set -ex
 
-# O setup de timezone foi removido para manter a configuração em GMT0
-# Set Timezone to Sao_Paulo
-# rm -f /etc/localtime
-# ln -sf /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
-
 useradd --system asterisk
 
 ## import system information vars
@@ -46,11 +41,7 @@ apt-get install -y curl git-core subversion wget libjansson-dev sqlite autoconf 
 mkdir -p /usr/src/asterisk
 
 cd /usr/src/asterisk
-curl -vL http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${ASTERISK_VERSION}.tar.gz | tar --strip-components 1 -xz
-
-# patch para atualização do MAXPTIME em relação as exigências da VIVO
-# wget https://arquivos.leucotron.com.br/update/patch/asterisk/18/main/codec_builtin.c 
-# cp codec_builtin.c ./main/codec_builtin.c
+curl -vL https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${ASTERISK_VERSION}.tar.gz | tar --strip-components 1 -xz
 
 # 1.5 jobs per core works out okay
 : ${JOBS:=$(($(nproc) + $(nproc) / 2))}

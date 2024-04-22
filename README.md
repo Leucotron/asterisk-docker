@@ -23,7 +23,7 @@ docker run -it --rm leucotron/asterisk:latest
 Verificar as versões disponíveis no DockerHub para especificar a versão através do nome da imagem:
 
 ```
-docker run -it --rm leucotron/asterisk:20.5.2
+docker run -it --rm leucotron/asterisk:20.7.0
 ```
 
 2) Inicialização:
@@ -38,7 +38,7 @@ Referência para Entrypoint: https://docs.docker.com/engine/reference/builder/#e
 Para gerar uma nova imagem com nova versão de Asterisk, nesse caso do exemplo abaixo, usamos a versão 18.15.0 alterando a ENV ASTERISK_VERSION
 
 ```
-docker build -t leucotron/asterisk:20.5.2 .
+docker build -t leucotron/asterisk:20.7.0 .
 ```
 
 Para autenticar seu usuário do Docker Hub
@@ -50,7 +50,7 @@ docker login
 Para enviar as modificações para o repositório:
 
 ```
-docker push leucotron/asterisk:20.5.2
+docker push leucotron/asterisk:20.7.0
 ```
 
 Para gerar a versão "latest", basta substituir a TAG de versão por "latest" em todos os comandos apresentados acima. Referência: https://docs.docker.com/docker-hub/repos/
