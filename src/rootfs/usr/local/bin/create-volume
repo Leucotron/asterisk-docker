@@ -1,0 +1,35 @@
+#!/bin/bash
+set -ex
+
+FILE=/etc/asterisk/manager.conf
+
+if [ -f "$FILE" ]; then
+    echo "$FILE existe - Segue execução normal."
+else
+    echo "$FILE não existe - Instalação inicial."
+
+    mkdir -p /data/etc/asterisk
+    mkdir -p /data/var/log/supervisor
+    mkdir -p /data/var/log/asterisk
+    mkdir -p /data/var/spool/asterisk
+    mkdir -p /data/var/lib/asterisk/sounds
+    mkdir -p /data/var/lib/asterisk/moh
+
+    chmod 777 -R /data     
+
+    cp -r /backup/etc/asterisk /data/etc
+    cp -r /backup/var/log/supervisor /data/var/log
+    cp -r /backup/var/log/asterisk /data/var/log
+    cp -r /backup/var/spool/asterisk /data/var/spool
+    cp -r /backup/var/lib/asterisk/sounds /data/var/lib/asterisk
+    cp -r /backup/var/lib/asterisk/moh /data/var/lib/asterisk   
+
+    chmod -R 777 /data/etc/asterisk 
+    chmod -R 777 /data/var/log/supervisor 
+    chmod -R 777 /data/var/log/asterisk 
+    chmod -R 777 /data/var/spool/asterisk 
+    chmod -R 777 /data/var/lib/asterisk/sounds 
+    chmod -R 777 /data/var/lib/asterisk/moh 
+
+    sudo chown -R asterisk:asterisk /data    
+fi

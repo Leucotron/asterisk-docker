@@ -36,12 +36,15 @@ apt-get -y install debconf-utils && \
 
 apt-get install -y build-essential
 
-apt-get install -y curl git-core subversion wget libjansson-dev sqlite autoconf automake libxml2-dev libncurses5-dev libtool
+apt-get install -y curl git-core subversion wget libjansson-dev autoconf automake libxml2-dev libncurses5-dev libtool
 
 mkdir -p /usr/src/asterisk
 
 cd /usr/src/asterisk
-curl -vL https://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${ASTERISK_VERSION}.tar.gz | tar --strip-components 1 -xz
+wget http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${ASTERISK_VERSION}.tar.gz 
+tar zxvf asterisk-${ASTERISK_VERSION}.tar.gz 
+asterisk_dir=$(find -maxdepth 1 -type d -name '*asterisk*'| head -n1)
+cd $asterisk_dir
 
 # 1.5 jobs per core works out okay
 : ${JOBS:=$(($(nproc) + $(nproc) / 2))}
@@ -78,11 +81,14 @@ sed -i -E 's/^;(run)(user|group)/\1\2/' /etc/asterisk/asterisk.conf
 sed -i -e 's/# MAXFILES=/MAXFILES=/' /usr/sbin/safe_asterisk
 
 # Install opus, for some reason menuselect option above does not working
-mkdir -p /usr/src/codecs/opus &&
-  cd /usr/src/codecs/opus &&
-  curl -vsL http://downloads.digium.com/pub/telephony/codec_opus/${OPUS_CODEC}.tar.gz | tar --strip-components 1 -xz &&
-  cp *.so /usr/lib64/asterisk/modules/ &&
-  cp codec_opus_config-en_US.xml /var/lib/asterisk/documentation/
+mkdir -p /usr/src/codecs/opus 
+cd /usr/src/codecs/opus
+wget http://downloads.digium.com/pub/telephony/codec_opus/${OPUS_ASTERISK_VERSION}/${OPUS_CODEC}.tar.gz
+tar zxvf ${OPUS_CODEC}.tar.gz
+opus_dir=$(find -maxdepth 1 -type d -name '*opus*'| head -n1)
+cd $opus_dir
+cp *.so /usr/lib64/asterisk/modules/
+cp codec_opus_config-en_US.xml /var/lib/asterisk/documentation/
 
 # Codec g729, it depends of processors, please verify before install
 #mkdir -p /usr/src/codecs/g729 &&
