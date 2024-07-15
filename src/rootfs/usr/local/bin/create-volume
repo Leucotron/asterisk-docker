@@ -1,35 +1,114 @@
 #!/bin/bash
 set -ex
 
-FILE=/etc/asterisk/manager.conf
+ASTERISK_FILE=/etc/asterisk/manager.conf
 
-if [ -f "$FILE" ]; then
-    echo "$FILE existe - Segue execução normal."
+ASTERISK_ASTDB=/var/lib/asterisk/astdb.sqlite3
+
+ASTERISK_DIR_LOG=/var/log/asterisk/cdr-csv
+
+ASTERISK_DIR_SPOOL=/var/spool/asterisk/dictate
+
+FAIL2BAN_FILE=/etc/fail2ban/jail.conf
+
+FAIL2BAN_SOCK=/var/run/fail2ban/fail2ban.sock
+
+if [ -f "$ASTERISK_FILE" ]; then
+    echo "$ASTERISK_FILE existe - Segue execução normal."
 else
-    echo "$FILE não existe - Instalação inicial."
+    echo "$ASTERISK_FILE não existe - Instalação inicial."
 
     mkdir -p /data/etc/asterisk
+    mkdir -p /data/var/lib/asterisk
     mkdir -p /data/var/log/supervisor
     mkdir -p /data/var/log/asterisk
     mkdir -p /data/var/spool/asterisk
-    mkdir -p /data/var/lib/asterisk/sounds
-    mkdir -p /data/var/lib/asterisk/moh
+    mkdir -p /data/var/lib/fail2ban
+    mkdir -p /data/etc/fail2ban
+    mkdir -p /data/var/log/fail2ban
 
     chmod 777 -R /data     
 
     cp -r /backup/etc/asterisk /data/etc
+    cp -r /backup/var/lib/asterisk /data/var/lib
     cp -r /backup/var/log/supervisor /data/var/log
     cp -r /backup/var/log/asterisk /data/var/log
     cp -r /backup/var/spool/asterisk /data/var/spool
-    cp -r /backup/var/lib/asterisk/sounds /data/var/lib/asterisk
-    cp -r /backup/var/lib/asterisk/moh /data/var/lib/asterisk   
+    cp -r /backup/var/lib/fail2ban /data/var/lib
+    cp -r /backup/etc/fail2ban /data/etc
+    cp -r /backup/var/log/fail2ban /data/var/log
 
     chmod -R 777 /data/etc/asterisk 
+    chmod -R 777 /data/var/lib/asterisk 
     chmod -R 777 /data/var/log/supervisor 
     chmod -R 777 /data/var/log/asterisk 
     chmod -R 777 /data/var/spool/asterisk 
-    chmod -R 777 /data/var/lib/asterisk/sounds 
-    chmod -R 777 /data/var/lib/asterisk/moh 
+    chmod -R 777 /data/var/lib/fail2ban  
+    chmod -R 777 /data/etc/fail2ban 
+    chmod -R 777 /data/var/log/fail2ban 
 
     sudo chown -R asterisk:asterisk /data    
+fi
+
+if [ -f "$ASTERISK_ASTDB" ]; then
+    echo "$ASTERISK_ASTDB existe - Segue execução normal." 
+else
+    echo "$ASTERISK_ASTDB não existe - Recuperação iniciada."
+
+    chmod 777 -R /data
+
+    mkdir -p /data/var/lib/asterisk
+    cp -r /backup/var/lib/asterisk /data/var/lib
+    chmod -R 777 /data/var/lib/asterisk  
+fi
+
+if [ -d "$ASTERISK_DIR_LOG" ]; then
+    echo "$ASTERISK_DIR_LOG existe - Segue execução normal." 
+else
+    echo "$ASTERISK_DIR_LOG não existe - Recuperação iniciada."
+
+    chmod 777 -R /data
+
+    mkdir -p /data/var/log/asterisk
+    cp -r /backup/var/log/asterisk /data/var/log
+    chmod -R 777 /data/var/log/asterisk 
+fi
+
+if [ -d "$ASTERISK_DIR_SPOOL" ]; then
+    echo "$ASTERISK_DIR_SPOOL existe - Segue execução normal." 
+else
+    echo "$ASTERISK_DIR_SPOOL não existe - Recuperação iniciada."
+
+    chmod 777 -R /data
+
+    mkdir -p /data/var/spool/asterisk
+    cp -r /backup/var/spool/asterisk /data/var/spool
+    chmod -R 777 /data/var/spool/asterisk 
+fi
+
+if [ -f "$FAIL2BAN_FILE" ]; then
+    echo "$FAIL2BAN_FILE existe - Segue execução normal." 
+else
+    echo "$FAIL2BAN_FILE não existe - Recuperação iniciada."
+
+    chmod 777 -R /data
+
+    mkdir -p /data/etc/fail2ban
+    cp -r /backup/etc/fail2ban /data/etc
+    chmod -R 777 /data/etc/fail2ban 
+
+    mkdir -p /data/var/lib/fail2ban
+    cp -r /backup/var/lib/fail2ban /data/var/lib
+    chmod -R 777 /data/var/lib/fail2ban
+
+    mkdir -p /data/var/log/fail2ban
+    cp -r /backup/var/log/fail2ban /data/var/log
+    chmod -R 777 /data/var/log/fail2ban 
+fi
+
+if [ -f "$FAIL2BAN_SOCK" ]; then
+    echo "$FAIL2BAN_SOCK existe - Limpando arquivo para execução normal do fail2ban."
+    rm -f $FAIL2BAN_SOCK
+else
+    echo "$FAIL2BAN_SOCK não existe - Segue execução normal."
 fi

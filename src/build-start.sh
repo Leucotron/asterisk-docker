@@ -15,7 +15,7 @@ ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 apt-get -y update
 apt-get -y upgrade
-apt-get -y install tzdata supervisor apt-utils vim watch sngrep nano cron locales
+apt-get -y install tzdata supervisor apt-utils vim watch sngrep nano cron locales openssh-server ipset iptables fail2ban sqlite3
 
 mkdir -p /var/log/supervisor
 

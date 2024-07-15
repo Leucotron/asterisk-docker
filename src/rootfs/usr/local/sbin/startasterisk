@@ -8,14 +8,21 @@ command=/usr/sbin/asterisk
 
 # Proxy signals
 function kill_app(){
-    #kill $(cat $pidfile)
+    #kill $(cat $pidfile)    
     $command -rx "core stop now"
+    service fail2ban stop 
     exit $?
 }
 trap "kill_app" SIGINT SIGTERM
 
-# configure permissions before starting
-#$command chown
+echo 'Force Fail2ban Sock remove'
+FAIL2BAN_SOCK=/var/run/fail2ban/fail2ban.sock
+rm -f $FAIL2BAN_SOCK || true
+
+EXIT_CODE=0
+echo 'Run Fail2ban'
+service fail2ban start || EXIT_CODE=$?
+echo $EXIT_CODE
 
 # start asterisk
 $command -f -U asterisk -G asterisk -vvvg -c

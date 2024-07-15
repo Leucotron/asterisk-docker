@@ -5,14 +5,16 @@ volumes:
 services:
   asterisk:
     network_mode: host
-    image: 'leucotron/asterisk:20.8.1'
+    image: 'leucotron/asterisk:20.8.1-b3'
     environment:
       - TZ=America/Sao_Paulo
     volumes:
       - './data/etc/asterisk:/data/etc/asterisk'      
+      - './data/var/lib/asterisk:/data/var/lib/asterisk'
       - './data/var/log/supervisor:/data/var/log/supervisor'
       - './data/var/log/asterisk:/data/var/log/asterisk'
-      - './data/var/spool/asterisk:/data/var/spool/asterisk'
-      - './data/var/lib/asterisk/sounds:/data/var/lib/asterisk/sounds'
-      - './data/var/lib/asterisk/moh:/data/var/lib/asterisk/moh'          
+      - './data/var/spool/asterisk:/data/var/spool/asterisk' 
+      - './data/var/lib/fail2ban:/data/var/lib/fail2ban'    
+      - './data/etc/fail2ban:/data/etc/fail2ban'  
+      - './data/var/log/fail2ban:/data/var/log/fail2ban'                 
     restart: unless-stopped

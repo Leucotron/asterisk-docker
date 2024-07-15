@@ -102,6 +102,25 @@ chown -R asterisk:asterisk /etc/asterisk \
   /usr/lib64/asterisk
 chmod -R 750 /var/spool/asterisk
 
+mkdir -p /var/log/asterisk
+cat <<EOF > /var/log/asterisk/messages
+** Created by Afonso ***
+EOF
+
+mkdir -p /var/log/fail2ban
+cat <<EOF > /var/log/fail2ban/fail2ban.log
+** Created by Afonso ***
+EOF
+
+rm /etc/fail2ban/fail2ban.conf
+cp /etc/fail2ban/fail2ban-setup.conf /etc/fail2ban/fail2ban.conf
+
+rm /etc/fail2ban/jail.conf
+cp /etc/fail2ban/jail-setup.conf /etc/fail2ban/jail.conf
+
+service fail2ban start
+service fail2ban stop
+
 cd /
 rm -rf /usr/src/asterisk \
   /usr/src/codecs
