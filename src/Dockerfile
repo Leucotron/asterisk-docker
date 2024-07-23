@@ -1,16 +1,16 @@
 # vim:set ft=dockerfile:
 FROM debian:12
 
-ENV APP_VER=20.8.1-b3
-#ENV APP_VER=18.23.1-b3
+ENV APP_VER=20.9.0
+#ENV APP_VER=18.24.0
 
 LABEL maintainer="Afonso Henrique Moreira Magalhaes <afonso@leucotron.com.br>"
 
-ENV ASTERISK_VERSION=20.8.1
+ENV ASTERISK_VERSION=20.9.0
 ENV OPUS_ASTERISK_VERSION=asterisk-20.0/x86-64
 ENV OPUS_CODEC=codec_opus-20.0_current-x86_64
 
-# ENV ASTERISK_VERSION=18.23.1
+# ENV ASTERISK_VERSION=18.24.0
 # ENV OPUS_ASTERISK_VERSION=asterisk-18.0/x86-64
 # ENV OPUS_CODEC=codec_opus-18.0_current-x86_64
 

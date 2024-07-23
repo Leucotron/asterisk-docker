@@ -41,7 +41,7 @@ apt-get install -y curl git-core subversion wget libjansson-dev autoconf automak
 mkdir -p /usr/src/asterisk
 
 cd /usr/src/asterisk
-wget http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${ASTERISK_VERSION}.tar.gz 
+wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 http://downloads.asterisk.org/pub/telephony/asterisk/old-releases/asterisk-${ASTERISK_VERSION}.tar.gz 
 tar zxvf asterisk-${ASTERISK_VERSION}.tar.gz 
 asterisk_dir=$(find -maxdepth 1 -type d -name '*asterisk*'| head -n1)
 cd $asterisk_dir
@@ -83,7 +83,7 @@ sed -i -e 's/# MAXFILES=/MAXFILES=/' /usr/sbin/safe_asterisk
 # Install opus, for some reason menuselect option above does not working
 mkdir -p /usr/src/codecs/opus 
 cd /usr/src/codecs/opus
-wget http://downloads.digium.com/pub/telephony/codec_opus/${OPUS_ASTERISK_VERSION}/${OPUS_CODEC}.tar.gz
+wget --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 http://downloads.digium.com/pub/telephony/codec_opus/${OPUS_ASTERISK_VERSION}/${OPUS_CODEC}.tar.gz
 tar zxvf ${OPUS_CODEC}.tar.gz
 opus_dir=$(find -maxdepth 1 -type d -name '*opus*'| head -n1)
 cd $opus_dir
