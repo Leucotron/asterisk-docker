@@ -1,10 +1,7 @@
-volumes:
-  config: null
-  monitor: null
 services:
   asterisk:
     network_mode: host
-    image: 'leucotron/asterisk:20.9.0'
+    image: 'leucotron/asterisk:20.9.2'
     environment:
       - TZ=America/Sao_Paulo
     volumes:
