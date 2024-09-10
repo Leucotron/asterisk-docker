@@ -38,7 +38,7 @@ Referência para Entrypoint: https://docs.docker.com/engine/reference/builder/#e
 Para gerar uma nova imagem com nova versão de Asterisk, nesse caso do exemplo abaixo, usamos a versão 20.9.1 alterando a ENV ASTERISK_VERSION
 
 ```
-docker build --progress=plain -t leucotron/asterisk:20.9.2 .
+docker build --progress=plain -t leucotron/asterisk:20.9.3 .
 ```
 
 Para autenticar seu usuário do Docker Hub
@@ -50,7 +50,7 @@ docker login
 Para enviar as modificações para o repositório:
 
 ```
-docker push leucotron/asterisk:20.9.2
+docker push leucotron/asterisk:20.9.3
 ```
 
 Para gerar a versão "latest", basta substituir a TAG de versão por "latest" em todos os comandos apresentados acima. Referência: https://docs.docker.com/docker-hub/repos/
