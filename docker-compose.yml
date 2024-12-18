@@ -1,7 +1,7 @@
 services:
   asterisk:
     network_mode: host
-    image: 'leucotron/asterisk:20.9.3'
+    image: 'leucotron/asterisk:22.1.0'
     environment:
       - TZ=America/Sao_Paulo
     volumes:

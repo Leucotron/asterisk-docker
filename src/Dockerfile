@@ -1,23 +1,24 @@
 # vim:set ft=dockerfile:
 FROM debian:12
 
-ENV APP_VER=20.9.3
-#ENV APP_VER=18.24.3
-#ENV APP_VER=21.4.3
+ENV APP_VER=22.1.0
+#ENV APP_VER=20.11.0
+#ENV APP_VER=18.26.0
+
 
 LABEL maintainer="Afonso Henrique Moreira Magalhaes <afonso@leucotron.com.br>"
 
-ENV ASTERISK_VERSION=20.9.3
-ENV OPUS_ASTERISK_VERSION=asterisk-20.0/x86-64
-ENV OPUS_CODEC=codec_opus-20.0_current-x86_64
+ENV ASTERISK_VERSION=22.1.0
+ENV OPUS_ASTERISK_VERSION=asterisk-22.0/x86-64
+ENV OPUS_CODEC=codec_opus-22.0-current-x86_64
 
-# ENV ASTERISK_VERSION=18.24.3
+# ENV ASTERISK_VERSION=20.11.0
+# ENV OPUS_ASTERISK_VERSION=asterisk-20.0/x86-64
+# ENV OPUS_CODEC=codec_opus-20.0_current-x86_64
+
+# ENV ASTERISK_VERSION=18.26.0
 # ENV OPUS_ASTERISK_VERSION=asterisk-18.0/x86-64
 # ENV OPUS_CODEC=codec_opus-18.0_current-x86_64
-
-# ENV ASTERISK_VERSION=21.4.3
-# ENV OPUS_ASTERISK_VERSION=asterisk-21.0/x86-64
-# ENV OPUS_CODEC=codec_opus-21.0-current-x86_64
 
 ADD rootfs /
 COPY build-asterisk.sh /
