@@ -56,6 +56,9 @@ mkdir -p /etc/asterisk/
 ./configure --libdir=/usr/lib64 --with-pjproject-bundled --with-jansson-bundled
 make menuselect/menuselect menuselect-tree menuselect.makeopts
 
+# enable chan_sip
+# this is needed for compatibility with old asterisk versions
+#menuselect/menuselect --enable chan_sip
 # we don't need any sounds in docker, they will be mounted as volume
 menuselect/menuselect --disable BUILD_NATIVE menuselect.makeopts
 menuselect/menuselect --disable pbx_ael menuselect.makeopts
